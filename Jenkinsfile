@@ -19,7 +19,7 @@ pipeline {
                 script {
                     sh '''
                     echo "Copying demo.txt to ..."
-                    cp ${WORKSPACE}/files/demo.txt ${TARGET_DIR}/
+                    sudo cp ${WORKSPACE}/files/demo.txt ${TARGET_DIR}/
                     ls -l ${TARGET_DIR}/demo.txt
                     '''
                 }
