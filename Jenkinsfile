@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        TARGET_DIR = "/home/admin1"
+        TARGET_DIR = "/home/admin1/jenkins-files"
     }
 
     stages {
@@ -14,13 +14,14 @@ pipeline {
             }
         }
 
-        stage('Copy File') {
+        stage('Copy All Files') {
             steps {
                 script {
                     sh '''
-                    echo "Copying demo.txt to ..."
-                    sudo cp ${WORKSPACE}/files/demo.txt ${TARGET_DIR}/
-                    ls -l ${TARGET_DIR}/demo.txt
+                    echo "Copying all files from repo to ${TARGET_DIR}..."
+                    mkdir -p ${TARGET_DIR}
+                    cp -r ${WORKSPACE}/files/* ${TARGET_DIR}/
+                    ls -l ${TARGET_DIR}/
                     '''
                 }
             }
@@ -29,7 +30,7 @@ pipeline {
 
     post {
         success {
-            echo "File copied successfully!"
+            echo "Files copied successfully!"
         }
         failure {
             echo "Pipeline failed."
